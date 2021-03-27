@@ -16,9 +16,9 @@ Field | Data Type | Required | Description
 categories_id | int| Y | categories_id is used to group item based on categories in categories_table
 name | string | Y | Name of the product 
 description | string | Y | Description of the product
-quantity | int | N | Quantity of the product 
-price | int | N | Price of the product
-Unit | int | N | Unit of the product, for example : "pcs"
+quantity | int | Y | Quantity of the product 
+price | int | Y | Price of the product
+Unit | int | Y | Unit of the product, for example : "pcs"
 
 ## Example
 ### Request
@@ -33,7 +33,7 @@ Unit | int | N | Unit of the product, for example : "pcs"
         "description":"Fastest racket",
         "quantity":50,
         "price":3500000,
-        "unit":pcs
+        "unit":"pcs"
 }
 ```
 
@@ -43,14 +43,14 @@ Unit | int | N | Unit of the product, for example : "pcs"
     "code": "200",
     "message":"Success creating product",
     "status":"success",
-    "results": {
-        "ID": 5
+    "data": {
+        "ID": 5,
         "categories_id":2,
         "name":"Yonex Racket 500",
         "description":"Fastest racket",
         "quantity":50,
         "price":3500000,
-        "unit":pcs
+        "unit":"pcs"
     }
 }
 ```

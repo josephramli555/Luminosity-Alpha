@@ -2,7 +2,7 @@
 
 ## Overview
 
-ASRA is REST-API specifically build to support online store system of ALTA. ASRA provides functionality that allows developers to behave either as customer or admin.
+ASRA is REST-API specifically build to support online store system of ALTA. ASRA provides functionality that allows developers to behave either as customer or admin. ASRA is created using Golang, Gorm, and MYSQL as database.
 
 ## Tutorial
 We provide another documentation using swagger(PUT_LINK_HERE) to make it easy to understand the basic of API 
@@ -16,7 +16,7 @@ There are 4 basic HTTP requests that you can use in this API:
 
 
 ## HTTP Responses
-Each response will include a code(repsonse code),message,status and result object that can be single object or array depending on the query.
+Each response will include a code(repsonse code),message,status and data object that can be single object or array depending on the query.
 
 ## HTTP Response Codes
 Each response will be returned with one of the following HTTP status codes:
