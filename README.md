@@ -22,7 +22,7 @@ passing customer data to register customer
 | 200 | success register customer |
 | 500 | error registration customer | 
 
-### Request Body Parameter Example
+#### Request Body Parameter Example
 ```json
 {
     "username":"lisa233",
@@ -31,7 +31,7 @@ passing customer data to register customer
 }
 ```
 
-## Response Body Example
+#### Response Body Example
 ```json
 {    
     "code": 200,
@@ -50,7 +50,7 @@ login as customer
 ##### Description
 passing email and password to login as customer
 
-###  Parameter
+####  Parameter
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
 | email | body | customer email | Yes | string |
@@ -62,7 +62,7 @@ passing email and password to login as customer
 | 200 | success login customer |
 | 400 | error login(invalid email/password) | 
 
-### Request Body Parameter Example
+#### Request Body Parameter Example
 ```json
 {
    "email":"susi@gmail.com",
@@ -70,7 +70,7 @@ passing email and password to login as customer
 }
 ```
 
-## Response Body Example
+#### Response Body Example
 ```json
 {    
     "code": 200,
@@ -95,7 +95,7 @@ Update Customer Data
 ##### Description
 passing several data to update  customer data 
 
-###  Parameter
+####  Parameter
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
 | id | path | customer id | Yes | string |
@@ -110,7 +110,7 @@ passing several data to update  customer data
 | 200 | success update customer data |
 | 400 | error update data| 
 
-### Request Body Parameter Example
+#### Request Body Parameter Example
 ```json
 {
     "email":"32ibu@gmail.com",
@@ -120,7 +120,7 @@ passing several data to update  customer data
 }
 ```
 
-## Response Body Example
+#### Response Body Example
 ```json
 {    
     "code": 200,
@@ -133,7 +133,7 @@ passing several data to update  customer data
 
 ### /products?category={id}
 
-#### GET
+##### GET
 ##### Summary
 
 Get products
@@ -141,7 +141,7 @@ Get products
 ##### Description
 Get all product based on category, if no id is passed then it will return all product in the store
 
-###  Parameter
+#### Parameter
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
 | id | query | category id | No | int |
@@ -153,7 +153,7 @@ Get all product based on category, if no id is passed then it will return all pr
 | 400 | error bad request | 
 
 
-## Response Body Example
+#### Response Body Example
 ```json
 {    
     "code": 200,
@@ -185,12 +185,12 @@ Adding cartitems to carts
 ##### Description
 Adding product that customer wants to buy into their cart
 
-###  Parameter
+####  Parameter
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
 | carts_id | body | customer cart id | Yes | int |
 | products_id | body | product id | Yes | int |
-| quanitty | body | quantity of product | Yes | int |
+| quantity | body | quantity of product | Yes | int |
 
 ##### Responses
 | Code | Description | 
@@ -199,7 +199,7 @@ Adding product that customer wants to buy into their cart
 | 400 | invalid input| 
 | 500 | product/cart not exist|
 
-### Request Body Parameter Example
+#### Request Body Parameter Example
 ```json
 {
     "carts_id":4,
@@ -208,11 +208,165 @@ Adding product that customer wants to buy into their cart
 }
 ```
 
-## Response Body Example
+#### Response Body Example
 ```json
 {    
     "code": 200,
     "status": "success",
     "message": "success insert cartitems"
+}
+```
+
+#### /cartitems?cart={cartid}
+
+#### GET
+##### Summary
+
+get all cartitems inside specific cart
+
+##### Description
+get all cartitems that is inside usercart
+
+####  Parameter
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| carts_id | query | customer cart id | Yes | int |
+
+##### Responses
+| Code | Description | 
+| ---- | ----------- |
+| 200 | success get cartitems |
+| 400 | bad request| 
+
+
+
+#### Response Body Example
+```json
+{    
+    "code": 200,
+    "status": "success",
+    "message": "Success Get Cartitems",
+    "data": [
+        {
+            "id": 29,
+            "carts_id": 4,
+            "products_id": 9,
+            "name": "Yonex e545",
+            "price": 45000,
+            "quantity": 3
+        }
+    ]
+}
+```
+
+#### /cartitems/:cartitemid
+
+#### DELETE
+##### Summary
+
+Delete specific cartitem
+
+##### Description
+Delete specific cartitem based on cartitemid
+
+####  Parameter
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| cartitemid | path |  id of cartitem to be deleted | Yes | int |
+
+##### Responses
+| Code | Description | 
+| ---- | ----------- |
+| 200 | success delete cartitems |
+| 400 | error deleting cartitems(wrong cartitem id etc)| 
+
+
+
+#### Response Body Example
+```json
+{    
+     "code": 200,
+     "message": "cartitems succesfully deleted",
+     "status": "success"
+}
+```
+
+### /orders
+
+#### POST
+##### Summary
+
+Creating order from customer
+
+##### Description
+When customer checkout order and payment will be created, and customer cart item will be moved to checkout item
+
+####  Parameter
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| customers_id | body | customer id | Yes | int |
+| courier_id | body | courier id | Yes | int |
+| payment_method | body | method of payment | Yes | string |
+| payment_start_date | body | date in format(yyyy-mm-dd hh:mm:ss)| Yes | string |
+| payment_end_date | body | date in format(yyyy-mm-dd hh:mm:ss)| Yes | string |
+| payment_status | body | status of payment | Yes | string |
+| payment_amount | body | total payment amount | Yes | int |
+
+
+##### Responses
+| Code | Description | 
+| ---- | ----------- |
+| 200 | success create order |
+| 400 | bad request(customer not exist,etc)| 
+
+#### Request Body Parameter Example
+```json
+{
+    "customers_id":4,
+     "couriers_id":1,
+     "payment_method":" BCA",
+     "payment_start_date":"2021-03-29 10:42:44.710",
+     "payment_end_date" : "2021-03-30 10:42:44.710",
+     "payment_status": "waiting",
+     "payment_amount" : 345000
+}
+```
+
+#### Response Body Example
+```json
+{    
+    "code": 200,
+    "message": "success insert order",
+    "status": "success"
+}
+```
+### /payments/:id
+
+#### PUT
+##### Summary
+
+Update payment status
+
+##### Description
+Update payment status when customer finishing their payment for the product
+
+####  Parameter
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| id | path | payment id that needs to be updated | Yes | int |
+
+##### Responses
+| Code | Description | 
+| ---- | ----------- |
+| 200 | success update payment |
+| 400 | error update payment(payment id not exist etc)| 
+
+
+#### Response Body Example
+```json
+{    
+    "code": 200,
+    "message": "success update payments",
+    "status": "success"
 }
 ```
